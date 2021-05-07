@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+
+bienes_all,bienes.all,model_bienes,,1,0,0,0
+bienes_system,bienes.system,model_bienes,base.group_system,1,1,1,1
+bienes_group_bienes_direccion,bienes.group_bienes_direccion,model_bienes,group_bienes_direccion,1,1,1,1
+bienes_group_bienes_registrador_clasificador,bienes.group_bienes_registrador_clasificador,model_bienes,group_bienes_registrador_clasificador,1,1,1,1
+bienes_group_bienes_registradores,bienes.group_bienes_registradores,model_bienes,group_bienes_registradores,1,0,0,0

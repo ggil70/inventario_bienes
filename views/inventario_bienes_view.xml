@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<data>
+      
+
+<record model="ir.ui.view" id="view_inventario_bienes_form">
+        <field name="name">inventario_bienes_form</field>
+        <field name="model">inventario_bienes</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            
+            <form string="Inventario Bienes Por Oficina">
+                <header>
+                    <button name ='resumen_inventario' string="Culminar Inventario" type='object'
+                             attrs="{'invisible':[('sw_inventario','in',(0,2))]}" 
+                            confirm="Esta seguro de culminar el Inventario de Bienes ? " class="btn_primary"/>
+                </header>                
+                
+                
+                <sheet>
+                 <notebook>
+                     <page string="Datos Basicos del Inventario">   
+                         <sheet>
+                             <group col="4" colspan="2">
+                                 <field name="inventario_fecha" attrs="{'readonly':[('inventario_estado','in',(2))]}"/>   
+                                 <field name="inventario_estado" attrs="{'readonly':True}"/>
+                             </group> 
+
+                             <group col="4" colspan="2">
+                                 <field name="inventario_sedes_id" attrs="{'readonly':[('inventario_estado','in',(2))]}"
+                                        options='{"no_open": True,"no_create": 1, "no_create_edit": 1}' select="0" required="True"/>
+                                 <field name="inventario_oficinas_id"  attrs="{'readonly':[('inventario_estado','in',(2))]}"
+                                        options='{"no_open": True,"no_create": 1, "no_create_edit": 1}' select="0" required="True"/>
+                                 <field name="inventario_responsable_uso_id" attrs="{'readonly':[('inventario_estado','in',(2))]}"
+                                        options='{"no_open": True,"no_create": 1, "no_create_edit": 1}' select="0" required="True"/>
+                             </group> 
+                                 <field name="inventario_regiones_id" attrs="{'invisible':True}"/>
+                                 <field name="sw_inventario" attrs="{'invisible':True}"/>
+                         </sheet>
+
+                     </page>         
+
+                     <page string="Bienes Inventariados" attrs="{'invisible':[('sw_inventario','=',0)]}">
+                        <sheet> 
+                            <field name="inventario_bienes_detalle_ids" colspan="2" required="True" 
+                                   attrs="{'disabled':[('sw_inventario','=','0')]}">
+                                   
+                                <tree editable="True">
+                                    <field name="bienes_id" style="width:200px" 
+                                           options='{"no_open": True,"no_create": 1, "no_create_edit": 1}'/> 
+                                           <!--domain = "[('active','=',True), ('inventario_inicial','=',1)]"/>-->
+                                    <field name="bien_nombre" readonly="1" force_save="1" style="width:200px" />
+                                    <field name="inventario_resultado_bien_id" readonly="1" force_save="1" style="width:200px" />
+                                    <field name="descripcion_resultado" readonly="1" force_save="1" style="width:200px" />
+                                    <field name="estatus_bien" invisible="1" force_save="1" />
+                                    <field name="bien_nro" invisible="1" force_save="1" />
+                                    
+                                </tree>
+                                
+                            </field>
+                                
+                        </sheet>
+                     </page>     
+
+                     <page string="Resultado Inventario" attrs="{'invisible':[('sw_inventario','in',(0,1))]}">
+                        <sheet> 
+                            <field name="inventario_resumen_ids" colspan="2" required="True" 
+                                   attrs="{'disabled':[('sw_inventario','in','0,1')]}">
+                                <tree>
+                                    <field name="bien_nro_resumen" readonly="1" />
+                                    <field name="bien_nombre_resumen" readonly="1" />
+                                    <field name="inventario_resultado_bien_id" readonly="1"  />
+                                    <field name="descripcion_resultado" readonly="1" />
+                                </tree>
+                            </field>
+                        </sheet>
+                     </page>
+
+
+
+                 </notebook>
+                </sheet>
+            </form>
+        </field>
+</record>
+    
+    
+<record model="ir.ui.view" id="view_inventario_bienes_tree">
+
+      <field name="name">inventario_bienes_tree</field>
+      <field name="model">inventario_bienes</field>
+      <field name="type">tree</field>
+      <field name="arch" type="xml">
+         <tree string="Inventario De Bienes">
+             <field name="inventario_fecha"/>
+             <field name="inventario_sedes_id"/>
+             <field name="inventario_oficinas_id"/>
+             <field name="inventario_bienes_detalle_ids"/>
+             <field name="inventario_estado"/>
+             
+         </tree>
+     </field>
+
+</record>
+
+<!--    
+<record model="ir.ui.view" id="view_inventario_bienes_search">
+        <field name="name">inventario_bienes_search</field>
+        <field name="model">inventario_bienes</field>
+        <field name="type">search</field>
+        <field name="arch" type="xml">
+            <search string="Busquedas de Inventario Bienes">
+                
+                <group expand="1" string="Agrupado por...">
+                    <filter string="Oficinas" name="group_by_oficinas_id" domain="[]" context="{'group_by':'inventario_oficinas_id'}"/>
+                </group>
+
+             </search>
+         
+        </field>
+</record>        
+-->
+
+
+
+ <record model="ir.actions.act_window" id="action_inventario_bienes">
+        <field name="name">Inventario Bienes Muebles</field>
+        <field name="res_model">inventario_bienes</field>
+        
+        <field name="view_mode">tree,form</field>
+
+</record>
+
+
+<!-- ############################ fin bienes ###############33-->
+
+ 
+ 
+   <!--  <record id="bienes_remision_action" model="ir.actions.act_window">
+        <field name="name">Remision de Inventario</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">bienes</field>
+        <field name="view_type">form</field>
+        <field name="code">self.crearcsv()</field>
+    </record>
+ -->
+
+        <!-- <record model="ir.values" id="test_more_item">
+            <field name="name">Remsion</field>
+            <field name="model">bienes</field>
+            <field name="key" >action</field>
+            <field name="key2">client_action_multi</field>
+            <field name="value" eval="'ir.actions.act_window,%d'%bienes_remision_action" />
+            <field name="object" eval="True" />
+        </record>
+ -->
+
+        
+    <menuitem name="Inventario Bienes Muebles" id="menu_p" web_icon="bienes,static/description/bienes.png"/>
+        <menuitem name="Inventario Bienes" id="menu_registro" parent="menu_p" />
+      
+            
+            <menuitem name="Inventario Bienes" id="menu_inventario_bienes" parent="menu_registro" action="action_inventario_bienes"/>
+         <!--    
+            <menuitem name="Remsion" id="menu_remision" parent="menu_p" action="bienes_remision_action"/>
+         
+   
+        <menuitem name="Reporte por Oficinas" id="menu_reportes" parent="menu_p"/>
+        <menuitem name="Inventario Sudebip"   id="menu_reportes" parent="menu_p"/>
+
+
+        <menuitem id="menu_jasper_informes" name="Informes Jasper" parent="menu_p"/>
+                  <menuitem
+                    parent="menu_jasper_informes"
+                    action="action_menu_jasper_oficinas_bienes"
+                    id="menu_jasper_report_oficinas"
+                />
+-->
+
+
+            
+            
+        
+<!--
+            <menuitem name="Selecionar Oficina" id="menu_oficrep" parent="menu_reportes" action="action_oficrep"/>
+-->             
+            
+                
+            
+        
+            
+            
+            
+            
+      
+</data>
+</odoo>

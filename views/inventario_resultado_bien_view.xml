@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<data>
+      
+
+<record model="ir.ui.view" id="view_inventario_resultado_bien_form">
+        <field name="name">inventario_resultado_bien_form</field>
+        <field name="model">inventario_resultado_bien</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="Resultado Inventario Del Bien">
+                <sheet>
+                 <notebook>
+                     <page string="Resultados">   
+                         <sheet>
+                             <group col="2" colspan="4">
+                                 <field name="nombre"/>
+                             </group> 
+                         </sheet>
+                     </page>         
+                    </notebook>
+               </sheet>
+            </form>
+        </field>
+</record>
+    
+    
+<record model="ir.ui.view" id="view_inventario_resultado_bien_tree">
+
+      <field name="name">inventario_resultado_bien_tree</field>
+      <field name="model">inventario_resultado_bien</field>
+      <field name="type">tree</field>
+      <field name="arch" type="xml">
+         <tree string="Resultado Inventario Del Bien">
+             <field name="nombre"/>
+         </tree>
+     </field>
+
+</record>
+
+<record model="ir.actions.act_window" id="action_inventario_resultado_bien">
+        <field name="name">Resultado Inventario Bien</field>
+        <field name="res_model">inventario_resultado_bien</field>
+        
+        <field name="view_mode">tree,form</field>
+</record>
+
+
+<!-- ############################ fin bienes ###############33-->
+
+ 
+ 
+   <!--  <record id="bienes_remision_action" model="ir.actions.act_window">
+        <field name="name">Remision de Inventario</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">bienes</field>
+        <field name="view_type">form</field>
+        <field name="code">self.crearcsv()</field>
+    </record>
+ -->
+
+        <!-- <record model="ir.values" id="test_more_item">
+            <field name="name">Remsion</field>
+            <field name="model">bienes</field>
+            <field name="key" >action</field>
+            <field name="key2">client_action_multi</field>
+            <field name="value" eval="'ir.actions.act_window,%d'%bienes_remision_action" />
+            <field name="object" eval="True" />
+        </record>
+ -->
+
+        
+
+
+      
+            
+        <menuitem name="Resultado Inventario Bien" id="menu_inventario_resultado_bien" parent="menu_registro" action="action_inventario_resultado_bien"/>
+         <!--    
+            <menuitem name="Remsion" id="menu_remision" parent="menu_p" action="bienes_remision_action"/>
+         
+   
+        <menuitem name="Reporte por Oficinas" id="menu_reportes" parent="menu_p"/>
+        <menuitem name="Inventario Sudebip"   id="menu_reportes" parent="menu_p"/>
+
+
+        <menuitem id="menu_jasper_informes" name="Informes Jasper" parent="menu_p"/>
+                  <menuitem
+                    parent="menu_jasper_informes"
+                    action="action_menu_jasper_oficinas_bienes"
+                    id="menu_jasper_report_oficinas"
+                />
+-->
+
+
+            
+            
+        
+<!--
+            <menuitem name="Selecionar Oficina" id="menu_oficrep" parent="menu_reportes" action="action_oficrep"/>
+-->             
+            
+                
+            
+        
+            
+            
+            
+            
+      
+</data>
+</odoo>
