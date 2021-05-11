@@ -115,7 +115,7 @@ class inventario_bienes_detalle(models.Model):
                             oficina_nombre = registro_bien.bienes_oficinas_id.oficinas_nombre
                             self.estatus_bien = '2'    
                             self.inventario_resultado_bien_id = 3
-                            self.descripcion_resultado = 'BIEN PERTENECIENTE A [' + oficina_nombre + ']'
+                            self.descripcion_resultado = 'PERTENECIENTE A [' + oficina_nombre + ']'
                     self.bien_nro =    registro_bien.bienes_numbien
                     self.bien_nombre = registro_bien.bienes_nombre
                     
@@ -135,6 +135,14 @@ class inventario_bienes(models.Model):
     #    today = fields.Datetime.now()
     #    fecha = today.strftime('%d/%m/%Y')        
     #    return fecha     
+
+
+    def fecha_actual(self):
+        today = fields.Datetime.now()
+        fecha = today.strftime('%d/%m/%Y')        
+        return fecha    
+
+
 
     inventario_fecha = fields.Date('Fecha Inicio Inventario', required=True,
                                   help='Fecha Inicio Inventario de la Oficina')

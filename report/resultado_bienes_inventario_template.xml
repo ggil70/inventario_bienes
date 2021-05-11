@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+
+<report
+
+  id="action_report_ficha_bienes_inventariados"
+  string="Inventario de Bienes"
+  model="inventario_bienes"
+  report_type="qweb-html"
+  name = "inventario_bienes.ficha_bienes_inventariados_template"
+  paperformat="inventario_bienes.paperformat_ficha_bienes_inventariados"
+  
+  menu="True"
+/>
+<!--paperformat="inventario_bienes.paperformat_ficha_bienes_inventariados"-->
+              
+<template id="ficha_bienes_inventariados_template">
+    <t t-call="web.html_container">
+    <!-- inicio de encabezado -->        
+        <!--<t t-set='linea' t-value='0'/>  Se activa para controlar las filas del reporte  -->
+        <t t-set='swPagina' t-value='0'/> 
+        <t t-foreach="docs" t-as="inventario">
+            <t t-if='swPagina==1'>
+                <!--Salto de pagina cuando sean varias paginas -->
+                <div style='page-break-after: always;'></div>
+            </t>
+            <t t-if='swPagina==0'>
+                <!--Permite controlar los saltos de pagina--> 
+                <t t-set='swPagina' t-value='1'/>
+            </t>
+
+            <t t-call="web.html_container">
+                <t t-call="web.external_layout">
+                <t t-set='swPagina' t-value='0'/> 
+                <div class="page">
+                    <t t-call="inventario_bienes.inventario_encabezado_bienes_inventariado"></t>
+                    
+                    <t t-call="inventario_bienes.bien_encabezado_tabla_inventario"></t>
+                    <t t-set='linea' t-value='0'/>
+                    <t t-foreach="inventario.inventario_bienes_detalle_ids" t-as="inventario_detalle">
+                        <t t-set='linea' t-value='linea+ 1'/>
+                        <table style="border:1px solid black; width:100%">
+                        <tr style=" height:50px" align="center">
+                            <td style="border:1px solid black; width:9%" >
+                                <span style="font-size:11px;" t-esc="inventario_detalle.bien_nro" />
+                            </td>
+                            
+                            <td style="border:1px solid black; width:50%">
+                                <span style="font-size:11px;" t-esc="inventario_detalle.bien_nombre" />
+                            </td>
+                            <td style="border:1px solid black; width:16%" >
+                                <span style="font-size:11px;" t-esc="inventario_detalle.inventario_resultado_bien_id.nombre" />
+                            </td>
+                            <td style="border:1px solid black; width:25%">
+                                <span style="font-size:11px;" t-esc="inventario_detalle.descripcion_resultado" />
+                            </td>
+                        </tr>
+                        </table>
+                        <t t-if='linea==15'>
+                            <div style='page-break-after: always;'></div>                                       
+                            <t t-set='linea' t-value='0'/>  
+                            <t t-call="inventario_bienes.inventario_encabezado_bienes_inventariado"></t>
+                            <t t-call="inventario_bienes.bien_encabezado_tabla_inventario"></t>
+                        </t>    
+                    </t>    
+                    
+                    
+                                              
+                    
+                    
+                </div>  <!-- div de page -->
+                </t>  <!-- Fin del external-layaut-->
+            </t>    <!-- Fin de Container interno-->
+        </t>  <!-- Fin del foreach -->   
+    </t> <!-- Fin container principal -->             
+</template>
+
+
+<record id="paperformat_ficha_bienes_inventariados" model="report.paperformat">
+    <field name="name">European A4</field>
+    <field name="default" eval="True" />
+    <field name="format">A4</field>
+    <field name="page_height">0</field>
+    <field name="page_width">0</field>
+    <field name="orientation">Portrait</field>
+    <!--<field name="orientation">Landscape</field>-->
+    <field name="margin_top">45</field>
+    <field name="margin_bottom">20</field>
+    <field name="margin_left">5</field>
+    <field name="margin_right">5</field>
+    <field name="header_line" eval="False" />
+    <field name="header_spacing">25</field>
+    <field name="dpi">90</field>
+</record>
+
+
+</odoo>
+

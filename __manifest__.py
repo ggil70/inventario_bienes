@@ -18,13 +18,8 @@
         'views/inventario_bienes_view.xml',
         'views/inventario_resultado_bien_view.xml',
         
-        #'report/bien_encabezado_template.xml',
-        #'report/ficha_bien_oficina_listado_template.xml',
-        #'report/bien_grupo_listado_template.xml',
-        #'report/bien_clasificacion_marca_listado_template.xml',
-        
-        #'report/ficha_bien_principal_template.xml',
-        #'report/listado_bienes_sedes_reporte_template.xml',
+        'report/bien_encabezado_inventario_template.xml',
+        'report/ficha_bienes_inventariados_template.xml',
      
 
         #'wizard/ficha_bien_oficina_reporte_wizard.xml',

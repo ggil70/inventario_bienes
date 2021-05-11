@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+
+<report
+
+  id="action_report_ficha_bien_principal"
+  string="Ficha Del Bien"
+  model="bienes"
+  report_type="qweb-html"
+  name = "bienes.ficha_bien_principal_template"
+  paperformat="bienes.paperformat_ficha_bien_principal"
+  menu="True"
+/>
+<!--paperformat="bienes.paperformat_listado_bien_grupo""-->
+              
+<template id="ficha_bien_principal_template">
+    <t t-call="web.html_container">
+    <!-- inicio de encabezado -->        
+        <!--<t t-set='linea' t-value='0'/>  Se activa para controlar las filas del reporte  -->
+        <t t-set='swPagina' t-value='0'/> 
+        <t t-foreach="docs" t-as="bienes">
+            <t t-if='swPagina==1'>
+                <!--Salto de pagina cuando sean varias paginas -->
+                <div style='page-break-after: always;'></div>
+            </t>
+            <t t-if='swPagina==0'>
+                <!--Permite controlar los saltos de pagina--> 
+                <t t-set='swPagina' t-value='1'/>
+            </t>
+
+            <t t-call="web.html_container">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <div>    
+                            <span style="font-weight:700"><small>FECHA: </small></span> <small t-esc="bienes.fecha_actual()"></small>
+                            <!--<br/>-->
+                        </div> 
+                        
+                        <!-- Titulo del reporte -->   
+                        <div style="text-align:center">
+                            <span style="font-weight:700; font-size:16px">FICHA DEL BIEN NACIONAL</span>
+                            <br/>
+                        </div>
+                        
+                        <table style="border:1px solid black; width:100%">
+                        <tr style="height:50px" valign="top">
+                            <td style="border:1px solid black; width:20%">
+                                <span style="font-size:14px; font-weight:700; margin-left:3px">N° BIEN: </span>
+                                <!--<span t-esc="o['bienes_numbien']" style="font-size:14px; margin-left:2px"/>-->
+                                <!--<small t-field="bienes['bienes_numbien']" />-->
+                                <small t-field="bienes.bienes_numbien" style="margin-left:3px"/>
+                            </td>
+                        
+                            <td style="border:1px solid black; width:80%">
+                                <small t-field="bienes.bienes_nombre" style="margin-left:3px"/>
+                            
+                            </td>
+                        </tr>
+                        </table>
+
+                        <table style="border:1px solid black; width:100%">
+                        <tr>
+                            <td style="text-align:center" colspan="2">
+                                <br/><span style="font-weight:700; font-size:14px; text-align:center">CARACTERISTICAS DEL BIEN</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="border:1px solid black; width:20%">
+                                <span style="font-weight:700; font-size:12px; text-align:center;margin-left:3px">GRUPO</span>
+                            </td>
+                            
+                             <td style="border:1px solid black; width:80%; font-size:12px;">
+                                <span t-field="bienes.grupo_bien_id.grupo_bien_nombre" style="margin-left:3px"/>
+                                      
+                            </td>
+                        </tr>
+                        <tr>    
+                            <td style="border:1px solid black; width:20%">
+                                <span style="font-weight:700; font-size:12px; text-align:center;margin-left:3px">CLASIFICADOR</span>
+                            </td>
+                            
+                             <td style="border:1px solid black; width:80%; font-size:12px;">
+                                <span t-field="bienes.clasificador_bien_id.clasificador_nombre" style="margin-left:3px"/>
+                                      
+                            </td>                            
+                        </tr>
+                        
+                      <tr>
+                            <td style="border:1px solid black; width:20%">
+                                <span style="font-weight:700; font-size:12px; text-align:center;margin-left:3px">MODELO</span>
+                            </td>
+                            
+                             <td style="border:1px solid black; width:80%; font-size:12px">
+                                <span t-field="bienes.modelo_bien_id.modelo_nombre" style="margin-left:3px"/>
+                                      
+                            </td>
+                        </tr>
+                        <tr>    
+                            <td style="border:1px solid black; width:20%">
+                                <span style="font-weight:700; font-size:12px; text-align:center;margin-left:3px">DETALLE</span>
+                            </td>
+                            
+                             <td style="border:1px solid black; width:80%; font-size:12px">
+                                <span t-field="bienes.detalle_modelo_id.detalle_modelo_nombre" style="margin-left:3px"/>
+                                      
+                            </td>                            
+                        </tr>    
+                        
+                        
+                        <tr>
+                            <td style="border:1px solid black; width:20%">
+                                <span style="font-weight:700; font-size:12px; text-align:center;margin-left:3px">MATERIAL</span>
+                            </td>
+                            
+                             <td style="border:1px solid black; width:80%; font-size:12px">
+                                <span t-field="bienes.material_id.material_nombre" style="margin-left:3px"/>
+                                      
+                            </td>
+                        </tr>
+                        <tr>    
+                            <td style="border:1px solid black; width:20%">
+                                <span style="font-weight:700; font-size:12px; text-align:center;margin-left:3px">COLOR</span>
+                            </td>
+                            
+                             <td style="border:1px solid black; width:80%; font-size:12px">
+                                <span t-field="bienes.color_id.color_nombre" style="margin-left:3px"/>
+                                      
+                            </td>                            
+                        </tr> 
+                        
+                        <tr>    
+                            <td style="border:1px solid black; width:20%">
+                                <span style="font-weight:700; font-size:12px; text-align:center;margin-left:3px">MARCA/MODELO</span>
+                            </td>
+                             
+                             <td style="border:1px solid black; width:80%; font-size:12px">
+                                <span t-field="bienes.marcas_id.marcas_nombre" style="margin-left:3px"/>
+                                <span> / </span>
+                                <span t-field="bienes.modelo_fab_id.modelo_fab_nombre" style="margin-left:3px"/>
+                                
+                                      
+                            </td>                            
+                        </tr>                            
+                        
+                        <tr>
+                            <td style="text-align:center" colspan="2">
+                                <br/><span style="font-weight:700; font-size:14px; text-align:center">UBICACIÓN FÍSICA DEL BIEN</span>
+                            </td>
+                        </tr>
+                        
+                        <tr>    
+                            <td style="border:1px solid black; width:20%; font-size:12px">
+                                <span style="font-weight:700; font-size:12px; text-align:center;margin-left:3px">SEDE</span>
+                            </td>
+                            
+                             <td style="border:1px solid black; width:80%; font-size:12px">
+                                <span t-field="bienes.bienes_sedes_id.sedes_nombre" style="margin-left:3px"/>
+                                      
+                            </td>                            
+                        </tr> 
+                        
+                        <tr>    
+                            <td style="border:1px solid black; width:20%">
+                                <span style="font-weight:700; font-size:12px; text-align:center;margin-left:3px">OFICINA</span>
+                            </td>
+                            
+                             <td style="border:1px solid black; width:80%; font-size:12px">
+                                <span t-field="bienes.bienes_oficinas_id.oficinas_nombre" style="margin-left:3px"/>
+                                      
+                            </td>                            
+                        </tr>    
+                        
+                        <tr>    
+                            <td style="border:1px solid black; width:20%">
+                                <span style="font-weight:700; font-size:12px; text-align:center;margin-left:3px">UBICACIÓN FÍSICA</span>
+                            </td>
+                            
+                             <td style="border:1px solid black; width:80%; font-size:12px">
+                                <span t-field="bienes.bienes_ubica_id.ubicacion_fisica_nombre" style="margin-left:3px"/>
+                                      
+                            </td>                            
+                        </tr>  
+                        <tr>    
+                            <td style="border:1px solid black; width:20%">
+                                <span style="font-weight:700; font-size:12px; text-align:center;margin-left:3px">PISO</span>
+                            </td>
+                            
+                             <td style="border:1px solid black; width:80%; font-size:12px">
+                                <span t-field="bienes.bienes_piso" style="margin-left:3px"/>
+                                      
+                            </td>                            
+                        </tr>  
+                        
+                        <tr>
+                            <td style="text-align:center" colspan="2">
+                                <br/><span style="font-weight:700; font-size:14px; text-align:center">INFORMACIÓN ADMINISTRATIVA DEL BIEN</span>
+                            </td>
+                        </tr>                            
+                        
+                        <tr>    
+                            <td style="border:1px solid black; width:20%">
+                                <span style="font-weight:700; font-size:12px; text-align:center;margin-left:3px">RESPONSABLE USO</span>
+                            </td>
+                            
+                             <td style="border:1px solid black; width:80%; font-size:12px">
+                                <span t-field="bienes.resp_uso_id" style="margin-left:3px"/>
+                                      
+                            </td>                            
+                        </tr> 
+                        <tr>    
+                            <td style="border:1px solid black; width:20%">
+                                <span style="font-weight:700; font-size:12px; text-align:center;margin-left:3px">MOVIMIENTO BIEN</span>
+                            </td>
+                            
+                             <td style="border:1px solid black; width:80%; font-size:12px">
+                                <span t-field="bienes.tipo_estatus_inventario_id.nom_estatus" style="margin-left:3px"/>
+                                      
+                            </td>                            
+                        </tr>                                                        
+
+                        <tr>    
+                            <td style="border:1px solid black; width:20%">
+                                <span style="font-weight:700; font-size:12px; text-align:center;margin-left:3px">FECHA MOVIMIENTO</span>
+                            </td>
+                            
+                             <td style="border:1px solid black; width:80%; font-size:12px">
+                                <span t-field="bienes.fech_inventario" style="margin-left:3px"/>
+                                      
+                            </td>                            
+                        </tr>                                                        
+                        <tr>    
+                            <td style="border:1px solid black; width:20%">
+                                <span style="font-weight:700; font-size:12px; text-align:center;margin-left:3px">ESTADO BIEN</span>
+                            </td>
+                            
+                             <td style="border:1px solid black; width:80%; font-size:12px">
+                                <span t-field="bienes.estado_bien_id.estado_bien_nombre" style="margin-left:3px"/>
+                                      
+                            </td>                            
+                        </tr>  
+
+                        <tr style="height:100px">    
+                            <td style="border:1px solid black; width:20%">
+                                <span style="font-weight:700; font-size:12px; text-align:center;margin-left:3px">OBSERVACIÓN</span>
+                            </td>
+                            
+                             <td style="border:1px solid black; width:80%; font-size:12px">
+                                <span t-field="bienes.observacion" style="margin-left:3px"/>
+                                      
+                            </td>                            
+                        </tr>
+                        </table>    
+               
+                    </div>  <!-- div de page -->
+                </t>  <!-- Fin del external-layaut-->
+            </t>    <!-- Fin de Container interno-->
+        </t>  <!-- Fin del foreach -->   
+    </t> <!-- Fin container principal -->             
+</template>
+
+
+<record id="paperformat_ficha_bien_principal" model="report.paperformat">
+    <field name="name">European A4</field>
+    <field name="default" eval="True" />
+    <field name="format">A4</field>
+    <field name="page_height">0</field>
+    <field name="page_width">0</field>
+    <field name="orientation">Portrait</field>
+    <!--<field name="orientation">Landscape</field>-->
+    <field name="margin_top">45</field>
+    <field name="margin_bottom">20</field>
+    <field name="margin_left">5</field>
+    <field name="margin_right">5</field>
+    <field name="header_line" eval="False" />
+    <field name="header_spacing">25</field>
+    <field name="dpi">90</field>
+</record>
+
+
+</odoo>
+
