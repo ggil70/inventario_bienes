@@ -185,7 +185,7 @@ class inventario_bienes(models.Model):
     @api.onchange('inventario_oficinas_id')
     def onchange_inventario_oficinas_id(self):
         self.inventario_responsable_uso_id = ''
-        
+       
         
 
     def resumen_inventario(self):
@@ -230,14 +230,10 @@ class inventario_bienes(models.Model):
 
         domain_resumen = [('id','=',self.id)]
         recordset_resumen = self.env['inventario_bienes'].search(domain_resumen)
+        
         for regis in recordset_resumen:
-            regis.write({'sw_inventario':2})                    
-            mensaje = "El Inventario fué terminado"  
-            warning = {
-                'title': "Advertencia!",
-                'message': mensaje,
-            }    
-        return {'warning': warning }      
-        
-        
-    
+            regis.write({'sw_inventario':2,
+                         'inventario_estado':'2'})                    
+                         
+
+        return True

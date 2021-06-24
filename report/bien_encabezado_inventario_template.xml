@@ -46,7 +46,7 @@
         </td>
 
         <td style="border:1px solid black; width:25%" >
-            <span style="font-size:12px; font-weight:700;">Estado del Inventariado </span>
+            <span style="font-size:12px; font-weight:700;">Estado del Inventario </span>
         </td>
 
         
@@ -108,6 +108,97 @@
         </tr>
         </table>
 </template> 
+
+
+
+<!-- RESULTADO DE INVENTARIO -->
+<template id="inventario_encabezado_resultado_inventario">
+   <div>    
+        <span style="font-weight:700"><small>FECHA: </small></span> <small t-esc="inventario.fecha_actual()"></small>
+        <!--<br/>-->
+    </div> 
+    
+    <!-- Titulo del reporte -->   
+    <div style="text-align:center">
+        <span style="font-weight:700; font-size:14px">INVENTARIO DE BIENES POR OFICINA</span>
+        <br/>
+    </div>
+    <table style="border:1px solid black; width:100%">
+    <tr style=" height:30px" align="center">
+        <td style="border:1px solid black; width:15%" >
+            <span style="font-size:12px; font-weight:700;">Fecha Inventario </span>
+        </td>
+        
+        <td style="border:1px solid black; width:60%" >
+            <span style="font-size:12px; font-weight:700;">Sede / Oficina Inventariada </span>
+        </td>
+
+        <td style="border:1px solid black; width:25%" >
+            <span style="font-size:12px; font-weight:700;">Estado del Inventariado </span>
+        </td>        
+    </tr>
+    
+    <tr style=" height:30px" align="center">
+        <td style="border:1px solid black; width:15%" >
+            <span style="font-size:12px;" t-esc="inventario.inventario_fecha" />
+        </td>
+        <td style="border:1px solid black; width:60%" >
+            <span style="font-size:12px;" t-esc="inventario.inventario_sedes_id.sedes_nombre" />
+            <span> / </span>
+            <span style="font-size:12px;" t-esc="inventario.inventario_oficinas_id.oficinas_nombre" />
+        </td>
+                                
+        <td style="border:1px solid black; width:25%" >
+            <t t-if='inventario.inventario_estado=="1"'>
+                <span style="font-size:12px; font-weight:700;">En Proceso</span>
+            </t>    
+            <t t-else="">
+                <span style="font-size:10px; font-weight:700;">Culminado</span>
+            </t>                            
+        </td>
+
+
+    </tr>
+    
+    </table>  
+    
+    <div style="text-align:center">
+        <br/>
+        <span style="font-weight:700; font-size:14px">RESULTADO DEL INVENTARIO</span>
+        <br/>
+    </div>
+
+</template>
+
+
+<template id="bien_encabezado_tabla_resultado">
+
+        <table style="border:1px solid black; width:100%">
+        <tr style=" height:50px" align="center">
+            <td style="border:1px solid black; width:9%" >
+                <span style="font-size:12px; font-weight:700;">N° DEL BIEN </span>
+            </td>
+            
+            <td style="border:1px solid black; width:50%">
+                <span style="font-size:12px; font-weight:700">DESCRIPCIÓN DEL BIEN </span>
+            </td>
+            <td style="border:1px solid black; width:16%" >
+                <span style="font-size:12px; font-weight:700">RESULTADO </span>
+            </td>
+            <td style="border:1px solid black; width:25%">
+                <span style="font-size:12px; font-weight:700">OBSERVACIÓN</span>
+            </td>
+        </tr>
+        </table>
+</template> 
+
+
+
+
+
+
+
+
 
 
 

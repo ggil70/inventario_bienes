@@ -3,19 +3,18 @@
 
 
 <report
-
-  id="action_report_ficha_bienes_inventariados"
-  string="Inventario de Bienes"
+  id="action_report_resultado_bienes_inventario"
+  string="Resultado Inventario de Bienes"
   model="inventario_bienes"
   report_type="qweb-html"
-  name = "inventario_bienes.ficha_bienes_inventariados_template"
-  paperformat="inventario_bienes.paperformat_ficha_bienes_inventariados"
-  
+  name = "inventario_bienes.resultado_bienes_inventario_template"
+
   menu="True"
 />
 <!--paperformat="inventario_bienes.paperformat_ficha_bienes_inventariados"-->
+<!--  paperformat="inventario_bienes.paperformat_ficha_bienes_inventariados"-->
               
-<template id="ficha_bienes_inventariados_template">
+<template id="resultado_bienes_inventario_template">
     <t t-call="web.html_container">
     <!-- inicio de encabezado -->        
         <!--<t t-set='linea' t-value='0'/>  Se activa para controlar las filas del reporte  -->
@@ -29,55 +28,71 @@
                 <!--Permite controlar los saltos de pagina--> 
                 <t t-set='swPagina' t-value='1'/>
             </t>
-
-            <t t-call="web.html_container">
-                <t t-call="web.external_layout">
-                <t t-set='swPagina' t-value='0'/> 
+            
+            <t t-if='inventario.inventario_estado=="1"'>
+                <t t-call="web.html_container">
                 <div class="page">
-                    <t t-call="inventario_bienes.inventario_encabezado_bienes_inventariado"></t>
-                    
-                    <t t-call="inventario_bienes.bien_encabezado_tabla_inventario"></t>
-                    <t t-set='linea' t-value='0'/>
-                    <t t-foreach="inventario.inventario_bienes_detalle_ids" t-as="inventario_detalle">
-                        <t t-set='linea' t-value='linea+ 1'/>
-                        <table style="border:1px solid black; width:100%">
-                        <tr style=" height:50px" align="center">
-                            <td style="border:1px solid black; width:9%" >
-                                <span style="font-size:11px;" t-esc="inventario_detalle.bien_nro" />
-                            </td>
-                            
-                            <td style="border:1px solid black; width:50%">
-                                <span style="font-size:11px;" t-esc="inventario_detalle.bien_nombre" />
-                            </td>
-                            <td style="border:1px solid black; width:16%" >
-                                <span style="font-size:11px;" t-esc="inventario_detalle.inventario_resultado_bien_id.nombre" />
-                            </td>
-                            <td style="border:1px solid black; width:25%">
-                                <span style="font-size:11px;" t-esc="inventario_detalle.descripcion_resultado" />
-                            </td>
-                        </tr>
-                        </table>
-                        <t t-if='linea==15'>
-                            <div style='page-break-after: always;'></div>                                       
-                            <t t-set='linea' t-value='0'/>  
-                            <t t-call="inventario_bienes.inventario_encabezado_bienes_inventariado"></t>
-                            <t t-call="inventario_bienes.bien_encabezado_tabla_inventario"></t>
+                    <t t-call="inventario_bienes.inventario_encabezado_resultado_inventario"></t>
+                    <br/>
+                    <div style="text-align: center;">
+                    <table style="border:1px solid black; width:100%">
+                    <tr style="height:60px; text-align:center">
+                        <td style="border:1px solid black;">
+                            <span style="font-size:20px; font-weight:700; align:center">
+                                Se requiere culminar el Inventario para poder visualizar el resultado del mismo 
+                            </span>
+                        </td>
+                    </tr>
+                    </table>
+                    </div>
+                </div>
+                </t>
+            </t>
+            <t t-else="">
+                <t t-call="web.html_container">
+                    <t t-call="web.external_layout">
+                    <!--<t t-set='swPagina' t-value='0'/>--> 
+                    <div class="page">
+                        <t t-call="inventario_bienes.inventario_encabezado_resultado_inventario"></t>
+                        
+                        <t t-call="inventario_bienes.bien_encabezado_tabla_resultado"></t>
+                        <t t-set='linea' t-value='0'/>
+                        <t t-foreach="inventario.inventario_resumen_ids" t-as="inventario_resultado">
+                            <t t-set='linea' t-value='linea+ 1'/>
+                            <table style="border:1px solid black; width:100%">
+                            <tr style=" height:50px" align="center">
+                                <td style="border:1px solid black; width:9%" >
+                                    <span style="font-size:11px;" t-esc="inventario_resultado.bien_nro_resumen" />
+                                </td>
+                                
+                                <td style="border:1px solid black; width:50%">
+                                    <span style="font-size:11px;" t-esc="inventario_resultado.bien_nombre_resumen" />
+                                </td>
+                                <td style="border:1px solid black; width:16%" >
+                                    <span style="font-size:11px;" t-esc="inventario_resultado.inventario_resultado_bien_id.nombre" />
+                                </td>                                                                          
+                                <td style="border:1px solid black; width:25%">
+                                    <span style="font-size:11px;" t-esc="inventario_resultado.descripcion_resultado" />
+                                </td>
+                            </tr>
+                            </table>
+                            <t t-if='linea==15'>
+                                <div style='page-break-after: always;'></div>                                       
+                                <t t-set='linea' t-value='0'/>  
+                                <t t-call="inventario_bienes.inventario_encabezado_resultado_inventario"></t>
+                                <t t-call="inventario_bienes.bien_encabezado_tabla_resultado"></t>
+                            </t>    
                         </t>    
-                    </t>    
-                    
-                    
-                                              
-                    
-                    
-                </div>  <!-- div de page -->
-                </t>  <!-- Fin del external-layaut-->
-            </t>    <!-- Fin de Container interno-->
+                    </div>  <!-- div de page -->
+                    </t>  <!-- Fin del external-layaut-->
+                </t>    <!-- Fin de Container interno-->
+            </t> <!-- else if -->          
         </t>  <!-- Fin del foreach -->   
     </t> <!-- Fin container principal -->             
 </template>
 
 
-<record id="paperformat_ficha_bienes_inventariados" model="report.paperformat">
+<record id="paperformat_resultado_bienes_inventario" model="report.paperformat">
     <field name="name">European A4</field>
     <field name="default" eval="True" />
     <field name="format">A4</field>
